@@ -9,6 +9,7 @@
 #define SRC_MAIN_H_
 
 #include <stdio.h>
+#include <string.h>
 #include <string>
 
 #include "constant.h"

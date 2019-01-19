@@ -16,11 +16,26 @@
 
 class Setup
 {
+
+private:
+    int setupStarted;
+    int terminalWidth;
+    void DisplayTitle(const char[]);
+    int GetTerminalWidth();
+
+    void Step1();
+
 public:
     Setup();
     void Start();
 };
 
 #endif /* SRC_SETUP_H_ */
+
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <termios.h>
+#include <iostream>
 
 #include "setup.cpp"
