@@ -14,28 +14,48 @@
 #define SETUP_ARGUMNET1 "--setup"
 #define SETUP_ARGUMENT2 "-S"
 
+#define SETUP_NUMBER_OF_STEPS "1";
+
 class Setup
 {
 
 private:
     int setupStarted;
     int terminalWidth;
-    void DisplayTitle(const char[]);
-    int GetTerminalWidth();
+    /**
+     * Display a tile message
+     */
+    void DisplayTitle(CPCHAR);
 
-    void Step1();
+    class System System;
+
+    /**
+     * Step 0 - display setup start message
+     */
+    int Step0();
+
+    /**
+     * Step 1 - get hostname
+     */
+    int Step1();
 
 public:
+    /**
+     * The default constructor
+     * Get the terminal width
+     */
     Setup();
+
+    /**
+     * Start the setup.
+     * Should only be called when the command line argument is detected.
+     */
     void Start();
 };
 
-#endif /* SRC_SETUP_H_ */
-
 #include <stdlib.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <termios.h>
 #include <iostream>
 
 #include "setup.cpp"
+
+#endif /* SRC_SETUP_H_ */

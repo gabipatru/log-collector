@@ -25,17 +25,18 @@
  */
 typedef int* PINT;
 typedef char* PCHAR;
+typedef const char* CPCHAR;
 
 /**
  * Running on Linux or Windows ?
  */
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) || defined(__WIN32__) || defined(__TOS_WIN__) || defined(__WINDOWS__)
 #define RUNNING_ON_WINDOWS 1
-#define RUNNING_ON_LINUX 0;
+#define RUNNING_ON_LINUX 0
 #define CLEAR_SCREEN "CLS"
 #else
 #define RUNNING_ON_WINDOWS 0
-#define RUNNING_ON_LINUX 1;
+#define RUNNING_ON_LINUX 1
 #define CLEAR_SCREEN "clear"
 #endif
 

@@ -13,6 +13,7 @@
 #include <string>
 
 #include "constant.h"
+#include "system.h"
 #include "setup.h"
 
 #endif /* SRC_MAIN_H_ */
