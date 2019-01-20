@@ -36,6 +36,9 @@ STRINGCLASS Setup::getTitleForStep(int step)
     case 2:
         Title = "Get ip address";
         break;
+    case 3:
+        Title = "Get Application Path";
+        break;
     default:
         Title = "Unknown Step";
         break;
@@ -62,6 +65,9 @@ void Setup::Start()
         return;
     }
     if (this->Step2() != 1) {
+        return;
+    }
+    if (this->Step3() != 1) {
         return;
     }
 }
@@ -132,4 +138,30 @@ int Setup::Step2()
     Config.setIpAddress(ipAddress);
 
     return 1;
+}
+
+int Setup::Step3()
+{
+    int correctPath;
+    STRINGCLASS path, Title;
+
+    Title = this->getTitleForStep(this->getNextStep());
+    this->Display.DisplayTitle(Title.c_str());
+
+    // get application path
+    path = this->System.Execute("pwd");
+
+    // info display
+    printf("Found the path %s%s%s\n\n", LINUX_TERMINAL_YELLOW, path.c_str(), LINUX_TERMINAL_NOCOLOR);
+
+    // ask if information is correct
+    correctPath = this->Display.DisplayYesNoQuestion("Is this correct ?");
+
+    // if the hostname is incorrect, the user must input the correct hostname
+    if (!correctPath) {
+        printf("Enter new Path: ");
+        std::cin >> path;
+    }
+
+    Config.setPath(path);
 }

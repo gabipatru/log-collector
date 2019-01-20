@@ -30,3 +30,13 @@ STRINGCLASS Config::getIpAddress()
 {
     return this->ipAddress;
 }
+
+void Config::setPath(STRINGCLASS path)
+{
+    this->path = path;
+}
+
+STRINGCLASS Config::getPath()
+{
+    return this->path;
+}

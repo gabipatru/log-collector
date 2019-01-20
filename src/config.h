@@ -13,6 +13,7 @@ class Config
 private:
     STRINGCLASS hostname;
     STRINGCLASS ipAddress;
+    STRINGCLASS path;
 
 public:
     Config();
@@ -28,6 +29,12 @@ public:
      */
     void setIpAddress(STRINGCLASS);
     STRINGCLASS getIpAddress();
+
+    /**
+     * Getter and Setter for Path
+     */
+    void setPath(STRINGCLASS);
+    STRINGCLASS getPath();
 };
 
 #include "constant.h"

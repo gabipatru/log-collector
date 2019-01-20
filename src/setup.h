@@ -14,7 +14,7 @@
 #define SETUP_ARGUMNET1 "--setup"
 #define SETUP_ARGUMENT2 "-S"
 
-#define SETUP_NUMBER_OF_STEPS 2
+#define SETUP_NUMBER_OF_STEPS 3
 
 class Setup
 {
@@ -50,6 +50,11 @@ private:
      * Step 2 - get ip address
      */
     int Step2();
+
+    /**
+     * Step 3 - get the application path
+     */
+    int Step3();
 
 public:
     /**
