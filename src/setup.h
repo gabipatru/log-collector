@@ -14,16 +14,27 @@
 #define SETUP_ARGUMNET1 "--setup"
 #define SETUP_ARGUMENT2 "-S"
 
-#define SETUP_NUMBER_OF_STEPS "1";
+#define SETUP_NUMBER_OF_STEPS "2"
 
 class Setup
 {
 
 private:
     int setupStarted;
+    int step;
 
     class System System;
     class Display Display;
+
+    /**
+     * Increment the current step and return the result
+     */
+    int getNextStep();
+
+    /**
+     * Return a string representing the title for the step
+     */
+    STRINGCLASS getTitleForStep(int);
 
     /**
      * Step 0 - display setup start message
@@ -34,6 +45,11 @@ private:
      * Step 1 - get hostname
      */
     int Step1();
+
+    /**
+     * Step 2 - get ip address
+     */
+    int Step2();
 
 public:
     /**

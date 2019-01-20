@@ -12,12 +12,22 @@ class Config
 {
 private:
     STRINGCLASS hostname;
+    STRINGCLASS ipAddress;
 
 public:
     Config();
 
+    /**
+     * Getter and Setter for Hostname
+     */
     void setHostname(STRINGCLASS);
     STRINGCLASS getHostname();
+
+    /**
+     * Getter and Setter for IP Address
+     */
+    void setIpAddress(STRINGCLASS);
+    STRINGCLASS getIpAddress();
 };
 
 #include "constant.h"
@@ -26,6 +36,6 @@ public:
 /**
  * Config is a global variable
  */
-class Config conf;
+class Config Config;
 
 #endif /* SRC_CONFIG_H_ */

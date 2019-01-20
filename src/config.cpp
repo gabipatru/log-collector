@@ -8,6 +8,7 @@
 Config::Config()
 {
     this->hostname = "";
+    this->ipAddress = "";
 }
 
 void Config::setHostname(STRINGCLASS hostname)
@@ -18,4 +19,14 @@ void Config::setHostname(STRINGCLASS hostname)
 STRINGCLASS Config::getHostname()
 {
     return this->hostname;
+}
+
+void Config::setIpAddress(STRINGCLASS ipAddress)
+{
+    this->ipAddress = ipAddress;
+}
+
+STRINGCLASS Config::getIpAddress()
+{
+    return this->ipAddress;
 }
