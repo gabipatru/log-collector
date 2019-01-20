@@ -14,7 +14,7 @@
 #define SETUP_ARGUMNET1 "--setup"
 #define SETUP_ARGUMENT2 "-S"
 
-#define SETUP_NUMBER_OF_STEPS "2"
+#define SETUP_NUMBER_OF_STEPS 2
 
 class Setup
 {

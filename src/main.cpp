@@ -18,18 +18,25 @@ int main (int argc, PCHAR argv[])
 
     STRINGCLASS argument;
 
-    Setup setup;
+    Setup Setup;
+    Help Help;
 
     // check command line arguments
     for (i=0; i<argc; i++) {
-        // check if we need to run the setup
         argument = argv[i];
+
+        // check if we need to run the setup
         if (argument.compare(SETUP_ARGUMNET1) == 0 || argument.compare(SETUP_ARGUMENT2) == 0) {
             if (i != 1 || argc > 2) {
                 return LINUX_ERROR;
             }
 
-            setup.Start();
+            Setup.Start();
+        }
+
+        // check if we have to display the help
+        if (argument.compare(HELP_ARGUMENT1) == 0 || argument.compare(HELP_ARGUMENT2) == 0) {
+            Help.DisplayHelp();
         }
     }
 

@@ -17,5 +17,6 @@
 #include "system.h"
 #include "display.h"
 #include "setup.h"
+#include "help.h"
 
 #endif /* SRC_MAIN_H_ */

@@ -41,7 +41,7 @@ STRINGCLASS Setup::getTitleForStep(int step)
         break;
     }
 
-    snprintf(buffer, sizeof(buffer), " (step %d of %s)", step, SETUP_NUMBER_OF_STEPS);
+    snprintf(buffer, sizeof(buffer), " (step %d of %d)", step, SETUP_NUMBER_OF_STEPS);
     Title = Title + buffer;
     return Title;
 }
