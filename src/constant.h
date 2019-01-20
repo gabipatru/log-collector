@@ -27,6 +27,8 @@ typedef int* PINT;
 typedef char* PCHAR;
 typedef const char* CPCHAR;
 
+typedef std::string STRINGCLASS;
+
 /**
  * Running on Linux or Windows ?
  */

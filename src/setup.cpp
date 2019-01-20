@@ -46,7 +46,7 @@ int Setup::Step1()
 {
     int correctHost;
     PCHAR buffer;
-    std::string hostname, Title("Get hostname (1 of ");
+    STRINGCLASS hostname, Title("Get hostname (1 of ");
 
     Title = Title + SETUP_NUMBER_OF_STEPS;
     Title = Title + ")";
@@ -64,9 +64,12 @@ int Setup::Step1()
 
     // if the hostname is incorrect, the user must input the correct hostname
     if (!correctHost) {
-        printf("Hostname: ");
+        printf("Enter new Hostname: ");
         std::cin >> hostname;
     }
+
+    // save the hostname in the Config class
+    conf.setHostname(hostname);
 
     return 1;
 }

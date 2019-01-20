@@ -11,13 +11,12 @@
 
 #include "main.h"
 
-
 int main (int argc, PCHAR argv[])
 {
     // vars
     int i;
 
-    std::string argument;
+    STRINGCLASS argument;
 
     Setup setup;
 

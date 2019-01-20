@@ -18,7 +18,7 @@ void Display::DisplayTitle(CPCHAR msg)
 {
     int i, extraStars;
 
-    std::string StarLine(this->terminalWidth, '*');
+    STRINGCLASS StarLine(this->terminalWidth, '*');
 
     // clear the console
     system(CLEAR_SCREEN);

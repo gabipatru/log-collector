@@ -13,6 +13,7 @@
 #include <string>
 
 #include "constant.h"
+#include "config.h"
 #include "system.h"
 #include "display.h"
 #include "setup.h"
