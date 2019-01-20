@@ -27,7 +27,6 @@ public:
     int GetTerminalWidth();
 };
 
-#include <iostream>
 #include <stdexcept>
 #include <unistd.h>
 #include <sys/ioctl.h>

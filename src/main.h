@@ -14,6 +14,7 @@
 
 #include "constant.h"
 #include "system.h"
+#include "display.h"
 #include "setup.h"
 
 #endif /* SRC_MAIN_H_ */

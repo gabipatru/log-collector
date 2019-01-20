@@ -21,13 +21,9 @@ class Setup
 
 private:
     int setupStarted;
-    int terminalWidth;
-    /**
-     * Display a tile message
-     */
-    void DisplayTitle(CPCHAR);
 
     class System System;
+    class Display Display;
 
     /**
      * Step 0 - display setup start message
@@ -53,7 +49,6 @@ public:
     void Start();
 };
 
-#include <stdlib.h>
 #include <iostream>
 
 #include "setup.cpp"

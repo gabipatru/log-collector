@@ -50,6 +50,6 @@ int System::GetTerminalWidth()
 {
     // terminal width
     struct winsize size;
-    ioctl( 0, TIOCGWINSZ, (char *) &size );
+    ioctl( 0, TIOCGWINSZ, (PCHAR) &size );
     return size.ws_col;
 }
