@@ -39,7 +39,7 @@ private:
     STRINGCLASS getTitleForStep(int);
 
     /**
-     * Step 0 - display setup start message
+     * Step 0 - display setup start message and check if the config file exists
      */
     int Step0();
 

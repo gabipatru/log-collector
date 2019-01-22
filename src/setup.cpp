@@ -76,10 +76,23 @@ void Setup::Start()
 
 int Setup::Step0()
 {
+    int continueSetup;
+    FILE *file;
+
     this->Display.DisplayTitle("Starting Setup !");
 
-    printf("Press any key to continue! \n\n");
-    getchar();
+    // check if a config file exists
+    if (file = fopen(CONFIG_FILE_NAME, "r")) {
+        fclose(file);
+        printf("WARNING!! A config file exists. If you continue setup, the file will be overwritten \n\n");
+        continueSetup = this->Display.DisplayYesNoQuestion("Continue setup ?");
+        if (! continueSetup) {
+            return 0;
+        }
+    } else {
+        printf("Press any key to continue! \n\n");
+        getchar();
+    }
 
     return 1;
 }
