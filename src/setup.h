@@ -14,6 +14,8 @@
 #define SETUP_ARGUMNET1 "--setup"
 #define SETUP_ARGUMENT2 "-S"
 
+#define SETUP_DEFAULT_PATH "/var/www/log-client"
+
 #define SETUP_NUMBER_OF_STEPS 3
 
 class Setup

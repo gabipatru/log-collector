@@ -149,7 +149,7 @@ int Setup::Step3()
     this->Display.DisplayTitle(Title.c_str());
 
     // get application path
-    path = this->System.Execute("pwd");
+    path = SETUP_DEFAULT_PATH;
 
     // info display
     printf("Found the path %s%s%s\n\n", LINUX_TERMINAL_YELLOW, path.c_str(), LINUX_TERMINAL_NOCOLOR);
