@@ -53,9 +53,14 @@ STRINGCLASS Config::prepareForSave(STRINGCLASS configName, STRINGCLASS configVal
     return buffer;
 }
 
-void Config::saveConfig()
+int Config::saveConfig()
 {
     std::ofstream FileOut(CONFIG_FILE_NAME);
+
+    // cehck if the file is opened
+    if (! FileOut.good()) {
+        return 0;
+    }
 
     // save config for hostname
     FileOut << this->prepareForSave("hostname", this->hostname);
@@ -65,9 +70,40 @@ void Config::saveConfig()
 
     // save the application path
     FileOut << this->prepareForSave("path", this->path);
+
+    return 1;
 }
 
-void Config::loadConfig()
+int Config::loadConfig()
 {
+    std::ifstream FileIn(CONFIG_FILE_NAME);
+    STRINGCLASS line;
 
+    // check if file is opened
+    if (! FileIn.good()) {
+        return 0;
+    }
+
+    // read host
+    if (! (FileIn >> line)) {
+        return 0;
+    }
+    line.erase(0, 9);
+    this->setHostname(line);
+
+    // read ip address
+    if (! (FileIn >> line)) {
+        return 0;
+    }
+    line.erase(0, 11);
+    this->setIpAddress(line);
+
+    // read application path
+    if (! (FileIn >> line)) {
+        return 0;
+    }
+    line.erase(0, 5);
+    this->setPath(line);
+
+    return 1;
 }

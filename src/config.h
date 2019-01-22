@@ -46,8 +46,8 @@ public:
     /**
      * Save config to file and load config from file
      */
-    void saveConfig();
-    void loadConfig();
+    int saveConfig();
+    int loadConfig();
 };
 
 #include "constant.h"

@@ -51,6 +51,8 @@ STRINGCLASS Setup::getTitleForStep(int step)
 
 void Setup::Start()
 {
+    int result;
+
     // check if the setup was previously started
     if (this->setupStarted == 1) {
         printf("Error! Setup already started!\n");
@@ -71,7 +73,10 @@ void Setup::Start()
         return;
     }
 
-    Config.saveConfig();
+    result = Config.saveConfig();
+    if (! result) {
+        printf("Error !!! Config file could not be saved !");
+    }
 }
 
 int Setup::Step0()
