@@ -61,10 +61,10 @@ void Config::saveConfig()
     FileOut << this->prepareForSave("hostname", this->hostname);
 
     // save the ip address
-    FileOut << this->prepareForSave("ip_address", this->ipAddress);;
+    FileOut << this->prepareForSave("ip_address", this->ipAddress);
 
     // save the application path
-    FileOut << this->prepareForSave("path", this->path);;;
+    FileOut << this->prepareForSave("path", this->path);
 }
 
 void Config::loadConfig()
