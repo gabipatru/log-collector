@@ -41,6 +41,16 @@ STRINGCLASS Config::getPath()
     return this->path;
 }
 
+void Config::setApiUrl(STRINGCLASS url)
+{
+    this->apiUrl = url;
+}
+
+STRINGCLASS Config::getApiUrl()
+{
+    return this->apiUrl;
+}
+
 STRINGCLASS Config::prepareForSave(STRINGCLASS configName, STRINGCLASS configValue)
 {
     STRINGCLASS buffer;
@@ -63,13 +73,16 @@ int Config::saveConfig()
     }
 
     // save config for hostname
-    FileOut << this->prepareForSave("hostname", this->hostname);
+    FileOut << this->prepareForSave("hostname", this->getHostname());
 
     // save the ip address
-    FileOut << this->prepareForSave("ip_address", this->ipAddress);
+    FileOut << this->prepareForSave("ip_address", this->getIpAddress());
 
     // save the application path
-    FileOut << this->prepareForSave("path", this->path);
+    FileOut << this->prepareForSave("path", this->getPath());
+
+    // save the API URL
+    FileOut << this->prepareForSave("api_url", this->getApiUrl());
 
     return 1;
 }
@@ -104,6 +117,13 @@ int Config::loadConfig()
     }
     line.erase(0, 5);
     this->setPath(line);
+
+    // read the API URL
+    if (! (FileIn >> line)) {
+        return 0;
+    }
+    line.erase(0, 8);
+    this->setApiUrl(line);
 
     return 1;
 }

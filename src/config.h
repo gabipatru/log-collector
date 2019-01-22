@@ -16,6 +16,7 @@ private:
     STRINGCLASS hostname;
     STRINGCLASS ipAddress;
     STRINGCLASS path;
+    STRINGCLASS apiUrl;
 
     /**
      * Prepare a config to be saved in the file
@@ -42,6 +43,12 @@ public:
      */
     void setPath(STRINGCLASS);
     STRINGCLASS getPath();
+
+    /**
+     * Getter and Setter for API URL
+     */
+    void setApiUrl(STRINGCLASS);
+    STRINGCLASS getApiUrl();
 
     /**
      * Save config to file and load config from file

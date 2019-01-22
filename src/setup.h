@@ -15,8 +15,9 @@
 #define SETUP_ARGUMENT2 "-S"
 
 #define SETUP_DEFAULT_PATH "/var/www/log-client"
+#define SETUP_DEFAULT_API_URL "http://api.surprizeturbo.ro"
 
-#define SETUP_NUMBER_OF_STEPS 3
+#define SETUP_NUMBER_OF_STEPS 4
 
 class Setup
 {
@@ -57,6 +58,11 @@ private:
      * Step 3 - get the application path
      */
     int Step3();
+
+    /**
+     * Step 4 - set up the API POST URL
+     */
+    int Step4();
 
 public:
     /**

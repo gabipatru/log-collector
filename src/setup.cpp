@@ -39,6 +39,9 @@ STRINGCLASS Setup::getTitleForStep(int step)
     case 3:
         Title = "Get Application Path";
         break;
+    case 4:
+        Title = "Set up API POST URL";
+        break;
     default:
         Title = "Unknown Step";
         break;
@@ -70,6 +73,9 @@ void Setup::Start()
         return;
     }
     if (this->Step3() != 1) {
+        return;
+    }
+    if (this->Step4() != 1) {
         return;
     }
 
@@ -120,7 +126,7 @@ int Setup::Step1()
     correctHost = this->Display.DisplayYesNoQuestion("Is this correct ?");
 
     // if the hostname is incorrect, the user must input the correct hostname
-    if (!correctHost) {
+    if (! correctHost) {
         printf("Enter new Hostname: ");
         std::cin >> hostname;
     }
@@ -148,8 +154,8 @@ int Setup::Step2()
     // ask if information is correct
     correctIpAddress = this->Display.DisplayYesNoQuestion("Is this correct ?");
 
-    // if the hostname is incorrect, the user must input the correct hostname
-    if (!correctIpAddress) {
+    // if the ip address is incorrect, the user must input the correct ip address
+    if (! correctIpAddress) {
         printf("Enter new IP Address: ");
         std::cin >> ipAddress;
     }
@@ -177,11 +183,37 @@ int Setup::Step3()
     // ask if information is correct
     correctPath = this->Display.DisplayYesNoQuestion("Is this correct ?");
 
-    // if the hostname is incorrect, the user must input the correct hostname
-    if (!correctPath) {
+    // if the path is incorrect, the user must input the correct path
+    if (! correctPath) {
         printf("Enter new Path: ");
         std::cin >> path;
     }
 
     Config.setPath(path);
+}
+
+int Setup::Step4()
+{
+    int correctApi;
+    STRINGCLASS url, Title;
+
+    Title = this->getTitleForStep(this->getNextStep());
+    this->Display.DisplayTitle(Title.c_str());
+
+    // get API POST URL
+    url = SETUP_DEFAULT_API_URL;
+
+    // info display
+    printf("Found the API URL %s%s%s\n\n", LINUX_TERMINAL_YELLOW, url.c_str(), LINUX_TERMINAL_NOCOLOR);
+
+    // ask if the information is correct
+    correctApi = this->Display.DisplayYesNoQuestion("Is this correct ?");
+
+    // if the API URL is incorrect, the user must input the correct API URL
+    if (! correctApi) {
+        printf("Enter new API URL: ");
+        std::cin >> url;
+    }
+
+
 }
