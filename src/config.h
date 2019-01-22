@@ -8,12 +8,19 @@
 #ifndef SRC_CONFIG_H_
 #define SRC_CONFIG_H_
 
+#define CONFIG_FILE_NAME "config.conf"
+
 class Config
 {
 private:
     STRINGCLASS hostname;
     STRINGCLASS ipAddress;
     STRINGCLASS path;
+
+    /**
+     * Prepare a config to be saved in the file
+     */
+    STRINGCLASS prepareForSave(STRINGCLASS, STRINGCLASS);
 
 public:
     Config();
@@ -35,6 +42,12 @@ public:
      */
     void setPath(STRINGCLASS);
     STRINGCLASS getPath();
+
+    /**
+     * Save config to file and load config from file
+     */
+    void saveConfig();
+    void loadConfig();
 };
 
 #include "constant.h"

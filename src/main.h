@@ -10,7 +10,10 @@
 
 #include <stdio.h>
 #include <string.h>
+
 #include <string>
+#include <fstream>
+#include <iostream>
 
 #include "constant.h"
 #include "config.h"

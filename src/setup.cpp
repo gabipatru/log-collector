@@ -70,6 +70,8 @@ void Setup::Start()
     if (this->Step3() != 1) {
         return;
     }
+
+    Config.saveConfig();
 }
 
 int Setup::Step0()

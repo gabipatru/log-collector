@@ -72,8 +72,6 @@ public:
     void Start();
 };
 
-#include <iostream>
-
 #include "setup.cpp"
 
 #endif /* SRC_SETUP_H_ */
