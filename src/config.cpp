@@ -65,6 +65,9 @@ STRINGCLASS Config::prepareForSave(STRINGCLASS configName, STRINGCLASS configVal
 
 int Config::saveConfig()
 {
+    // remove old file
+    remove(CONFIG_FILE_NAME);
+
     std::ofstream FileOut(CONFIG_FILE_NAME);
 
     // cehck if the file is opened

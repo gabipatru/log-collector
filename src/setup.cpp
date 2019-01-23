@@ -214,6 +214,4 @@ int Setup::Step4()
         printf("Enter new API URL: ");
         std::cin >> url;
     }
-
-
 }
