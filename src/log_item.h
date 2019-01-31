@@ -104,11 +104,17 @@ public:
      * Create an item
      */
     void CreateItem(LogItem);
+    void CreateItem(STRINGCLASS, STRINGCLASS, STRINGCLASS);
 
     /**
      * Set the current item to the head
      */
     void Reset();
+
+    /**
+     * Check if the currect item is valid
+     */
+    int hasCurrentItem();
 
     /**
      * Get the current item
@@ -120,6 +126,8 @@ public:
      */
     LogItem getCurrentItemAndInc();
 };
+
+class LogChain LogItems;
 
 #include "constant.h"
 

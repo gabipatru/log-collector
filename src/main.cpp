@@ -15,11 +15,13 @@ int main (int argc, PCHAR argv[])
 {
     // vars
     int i;
+    LogItem Item("NULL", "NULL", "NULL");
 
     STRINGCLASS argument;
 
     Setup Setup;
     Help Help;
+    LogConfig LogConfig;
 
     // check command line arguments
     for (i=0; i<argc; i++) {
@@ -32,13 +34,19 @@ int main (int argc, PCHAR argv[])
             }
 
             Setup.Start();
+
+            return LINUX_NO_ERROR;
         }
 
         // check if we have to display the help
         if (argument.compare(HELP_ARGUMENT1) == 0 || argument.compare(HELP_ARGUMENT2) == 0) {
             Help.DisplayHelp();
+
+            return LINUX_NO_ERROR;
         }
     }
+
+    LogConfig.loadConfig();
 
     return LINUX_NO_ERROR;
 }

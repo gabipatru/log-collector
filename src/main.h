@@ -9,7 +9,6 @@
 #define SRC_MAIN_H_
 
 #include <stdio.h>
-#include <string.h>
 
 #include <string>
 #include <fstream>
@@ -21,6 +20,7 @@
 #include "display.h"
 #include "setup.h"
 #include "log_item.h"
+#include "log_config.h"
 #include "help.h"
 
 #endif /* SRC_MAIN_H_ */

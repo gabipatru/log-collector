@@ -106,9 +106,28 @@ void LogChain::CreateItem(LogItem Item)
     }
 }
 
+void LogChain::CreateItem(STRINGCLASS type, STRINGCLASS subType, STRINGCLASS path)
+{
+    LogItem Item;
+
+    Item.setType(type);
+    Item.setSubType(subType);
+    Item.setPath(path);
+
+    this->CreateItem(Item);
+}
+
 void LogChain::Reset()
 {
     this->pCurrent = this->pHead;
+}
+
+int LogChain::hasCurrentItem()
+{
+    if ( this->pCurrent != NULL ) {
+        return true;
+    }
+    return false;
 }
 
 LogItem LogChain::getCurrentItem()
