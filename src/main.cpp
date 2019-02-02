@@ -22,6 +22,7 @@ int main (int argc, PCHAR argv[])
     Setup Setup;
     Help Help;
     LogConfig LogConfig;
+    LogUploader LogUploader;
 
     // check command line arguments
     for (i=0; i<argc; i++) {
@@ -47,6 +48,8 @@ int main (int argc, PCHAR argv[])
     }
 
     LogConfig.loadConfig();
+
+    LogUploader.LogParser( LogItems.getCurrentItem() );
 
     return LINUX_NO_ERROR;
 }

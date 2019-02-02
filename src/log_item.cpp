@@ -5,6 +5,9 @@
  *      Author: Gabi
  */
 
+/**
+ * Log Item
+ */
 LogItem::LogItem()
 {
     this->type = "";
@@ -56,7 +59,25 @@ STRINGCLASS LogItem::getPath()
     return this->path;
 }
 
+int LogItem::Validate()
+{
+    if ( this->getType().length() == 0 ) {
+        return 0;
+    }
+    if ( this->getSubType().length() == 0 ) {
+        return 0;
+    }
+    if ( this->getPath().length() == 0 ) {
+        return 0;
+    }
 
+    return 1;
+}
+
+
+/**
+ * Log List
+ */
 LogList::LogList()
 {
     this->pNext = NULL;
@@ -83,6 +104,9 @@ PLOGLIST LogList::getNextPointer()
 }
 
 
+/**
+ * Log Chain
+ */
 LogChain::LogChain()
 {
     this->pHead = NULL;

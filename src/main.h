@@ -21,6 +21,7 @@
 #include "setup.h"
 #include "log_item.h"
 #include "log_config.h"
+#include "log_uploader.h"
 #include "help.h"
 
 #endif /* SRC_MAIN_H_ */

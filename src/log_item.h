@@ -58,6 +58,11 @@ public:
      */
     void setPath(STRINGCLASS);
     STRINGCLASS getPath();
+
+    /**
+     * Check if all fields are valid
+     */
+    int Validate();
 };
 
 typedef class LogItem* PLOGITEM;
