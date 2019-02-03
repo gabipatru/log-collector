@@ -50,6 +50,8 @@ int main (int argc, PCHAR argv[])
         }
     }
 
+    // load APP config and Log config
+    Config.loadConfig();
     LogConfig.loadConfig();
 
     LogUploader.LogParser( LogItems.getCurrentItem() );

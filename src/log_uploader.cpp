@@ -79,7 +79,7 @@ int LogUploader::Upload( LogItem Item, STRINGCLASS& buffer )
         // make request, get response code
         response = curl_easy_perform( curl );
         if ( response != CURLE_OK ) {
-            printf( "\nError while performing HTTP request. Response code: %d\n", response );
+            printf( "\nError while performing HTTP request. Response code: %d \n", response );
 
             curl_easy_cleanup( curl );
             curl_global_cleanup();
