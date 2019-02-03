@@ -87,6 +87,8 @@ int Config::saveConfig()
     // save the API URL
     FileOut << this->prepareForSave("api_url", this->getApiUrl());
 
+    FileOut.close();
+
     return 1;
 }
 

@@ -75,7 +75,7 @@ public:
      * Start the setup.
      * Should only be called when the command line argument is detected.
      */
-    void Start();
+    int Start();
 };
 
 #include "setup.cpp"

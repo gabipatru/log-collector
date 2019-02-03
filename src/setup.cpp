@@ -52,37 +52,40 @@ STRINGCLASS Setup::getTitleForStep(int step)
     return Title;
 }
 
-void Setup::Start()
+int Setup::Start()
 {
     int result;
 
     // check if the setup was previously started
     if (this->setupStarted == 1) {
         printf("Error! Setup already started!\n");
-        return;
+        return 0;
     }
     this->setupStarted = 1;
 
     if (this->Step0() != 1) {
-        return;
+        return 0;
     }
     if (this->Step1() != 1) {
-        return;
+        return 0;
     }
     if (this->Step2() != 1) {
-        return;
+        return 0;
     }
     if (this->Step3() != 1) {
-        return;
+        return 0;
     }
     if (this->Step4() != 1) {
-        return;
+        return 0;
     }
 
     result = Config.saveConfig();
     if (! result) {
         printf("Error !!! Config file could not be saved !");
+        return 0;
     }
+
+    return 1;
 }
 
 int Setup::Step0()
@@ -190,6 +193,8 @@ int Setup::Step3()
     }
 
     Config.setPath(path);
+
+    return 1;
 }
 
 int Setup::Step4()
@@ -214,4 +219,8 @@ int Setup::Step4()
         printf("Enter new API URL: ");
         std::cin >> url;
     }
+
+    Config.setApiUrl( url );
+
+    return 1;
 }

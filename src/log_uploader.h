@@ -15,6 +15,12 @@ class LogUploader
 {
 private:
     int logChunkSize;
+
+    /**
+     * Build the POST body string
+     */
+    STRINGCLASS buildPost(LogItem, STRINGCLASS&);
+
 public:
     /*
      * Default Constructor
@@ -25,9 +31,15 @@ public:
      * Log Parse - read lines from log
      */
     int LogParser( LogItem );
+
+    /*
+     * Upload the loaded lines to the DB
+     */
+    int Upload( LogItem, STRINGCLASS& );
 };
 
 #include <sstream>
+#include <curl/curl.h>
 
 #include "log_uploader.cpp"
 

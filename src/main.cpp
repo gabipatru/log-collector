@@ -14,7 +14,7 @@
 int main (int argc, PCHAR argv[])
 {
     // vars
-    int i;
+    int i, result;
     LogItem Item("NULL", "NULL", "NULL");
 
     STRINGCLASS argument;
@@ -34,7 +34,10 @@ int main (int argc, PCHAR argv[])
                 return LINUX_ERROR;
             }
 
-            Setup.Start();
+            result = Setup.Start();
+            if ( ! result ) {
+                printf("\nSomething went wrong during setup !!!\n");
+            }
 
             return LINUX_NO_ERROR;
         }
