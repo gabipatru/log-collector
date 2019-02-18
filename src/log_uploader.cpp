@@ -19,11 +19,13 @@ int LogUploader::LogParser( LogItem Item )
     unsigned long bytesRead = 0;
 
     if ( ! Item.Validate() ) {
+        printf( "Item sent to logparser is not valid. Stopping logparser for this item !\n" );
         return 0;
     }
 
     // check if the log file actually exists
     if ( ! file ) {
+        printf( "The Item's log file does not exist (%s)\n", Item.getPath().c_str() );
         return 0;
     }
 
