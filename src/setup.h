@@ -14,7 +14,7 @@
 #define SETUP_ARGUMNET1 "--setup"
 #define SETUP_ARGUMENT2 "-S"
 
-#define SETUP_DEFAULT_PATH "/var/www/log-client"
+#define SETUP_DEFAULT_PATH "/home/gabi/log-client"
 #define SETUP_DEFAULT_API_URL "http://127.0.0.1/upload.php"
 
 #define SETUP_NUMBER_OF_STEPS 4

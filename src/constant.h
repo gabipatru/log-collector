@@ -30,6 +30,14 @@ typedef const char* CPCHAR;
 typedef std::string STRINGCLASS;
 
 /**
+ * Some constants for Config
+ */
+#define LOG_CHUNK_SIZE 32 // Size in KB
+#define MAX_LINES_READ 10 // the maximum lines to be read from a file
+#define UPLOAD_DELAY 100 // miliseconds
+#define UPLOAD_ITERATIONS 10 // number of iterations per log
+
+/**
  * Running on Linux or Windows ?
  */
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) || defined(__WIN32__) || defined(__TOS_WIN__) || defined(__WINDOWS__)

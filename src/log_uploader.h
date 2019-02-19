@@ -8,9 +8,6 @@
 #ifndef SRC_LOG_UPLOADER_H_
 #define SRC_LOG_UPLOADER_H_
 
-#define LOG_CHUNK_SIZE 32 // Size in KB
-#define MAX_LINES_READ 10 // the maximum lines to be read from a file
-
 class LogUploader
 {
 private:
