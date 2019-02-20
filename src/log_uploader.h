@@ -11,6 +11,8 @@
 class LogUploader
 {
 private:
+    class Display Display;
+
     int logChunkSize;
 
     /**
@@ -28,6 +30,11 @@ public:
      * Log Parse - read lines from log
      */
     int LogParser( LogItem );
+
+    /**
+     * Read contents from the file
+     */
+    void LogReader( std::ifstream*, STRINGCLASS & );
 
     /*
      * Upload the loaded lines to the DB

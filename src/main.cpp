@@ -61,6 +61,7 @@ int main (int argc, PCHAR argv[])
         return LINUX_ERROR;
     }
 
+    //LogItems.Reset();
     LogUploader.LogParser( LogItems.getCurrentItem() );
 
     return LINUX_NO_ERROR;

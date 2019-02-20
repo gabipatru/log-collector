@@ -198,6 +198,7 @@ int Config::loadConfig()
     }
     line.erase( 0, 15 );
     buffer = (int) strtoul( line.c_str(), &ptr, 10 );
+    buffer = buffer * 1024;
     this->setLogChunkSize( buffer );
 
     // read the Upload Delay
@@ -207,6 +208,7 @@ int Config::loadConfig()
     }
     line.erase( 0, 13 );
     buffer = (int) strtoul( line.c_str(), &ptr, 10 );
+    buffer = buffer * 1000;
     this->setUploadDelay( buffer );
 
     // read the Upload Iterations

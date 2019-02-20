@@ -7,16 +7,19 @@
 
 LogUploader::LogUploader()
 {
+    class Display disp;
+
+    this->Display = disp;
+
     this->logChunkSize = 32 * 1024;
 }
 
 int LogUploader::LogParser( LogItem Item )
 {
     STRINGCLASS buffer;
-    STRINGCLASS line;
     std::ifstream file( Item.getPath().c_str() );
     int i;
-    unsigned long bytesRead = 0;
+
 
     if ( ! Item.Validate() ) {
         printf( "Item sent to logparser is not valid. Stopping logparser for this item !\n" );
@@ -32,27 +35,43 @@ int LogUploader::LogParser( LogItem Item )
     // read from log
     i = 0;
     while ( ! file.eof() ) {
-        std::getline( file, line );
+        // read data from log
+        this->LogReader( &file, buffer );
 
-        // calculate new value of bytes read
-        bytesRead = bytesRead + line.length();
-        if ( bytesRead >= this->logChunkSize ) {
+        // upload data
+        this->Upload( Item, buffer );
+
+        // reset data
+        buffer = "";
+
+        i++;
+        if ( i >= Config.getUploadIterations() ) {
             break;
         }
+
+        usleep( Config.getUploadDelay() );
+    }
+
+    file.close();
+}
+
+void LogUploader::LogReader( std::ifstream *file, STRINGCLASS &buffer )
+{
+    STRINGCLASS line;
+    unsigned long bytesRead = 0;
+
+    while ( ! file->eof() ) {
+        std::getline( *file, line );
 
         buffer += line;
         buffer += "\n";
 
-        i++;
-        // stop if the limit number of lines was reached
-        if ( i >= MAX_LINES_READ ) {
-            break;
+        // calculate new value of bytes read
+        bytesRead = bytesRead + line.length();
+        if ( bytesRead >= Config.getLogChunkSize() ) {
+            return;
         }
     }
-
-    file.close();
-
-    return this->Upload( Item, buffer );
 }
 
 int LogUploader::Upload( LogItem Item, STRINGCLASS& buffer )
@@ -60,6 +79,7 @@ int LogUploader::Upload( LogItem Item, STRINGCLASS& buffer )
     CURL *curl;
     CURLcode response;
     STRINGCLASS PostFields( "" );
+    char msgBuffer[200];
 
     if ( ! Item.Validate() ) {
         return 0;
@@ -86,8 +106,16 @@ int LogUploader::Upload( LogItem Item, STRINGCLASS& buffer )
             curl_easy_cleanup( curl );
             curl_global_cleanup();
 
+            // display error message
+            snprintf( msgBuffer, sizeof( msgBuffer ), "Failed to upload %s%d%s bytes", LINUX_TERMINAL_WHITE, buffer.length(), LINUX_TERMINAL_NOCOLOR );
+            this->Display.DisplayError( msgBuffer );
+
             return 0;
         }
+
+        // display successful upload message
+        snprintf( msgBuffer, sizeof( msgBuffer ), "Uploaded %s%d%s bytes", LINUX_TERMINAL_WHITE, buffer.length(), LINUX_TERMINAL_NOCOLOR );
+        this->Display.DisplayMessage( msgBuffer );
 
         curl_easy_cleanup( curl );
     }
