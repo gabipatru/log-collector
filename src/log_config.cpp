@@ -5,6 +5,13 @@
  *      Author: Gabi
  */
 
+LogConfig::LogConfig()
+{
+    class Display disp;
+
+    this->Display = disp;
+}
+
 int LogConfig::loadConfig()
 {
     PXMLELEMENT type, subtype, pathitem;
@@ -12,7 +19,7 @@ int LogConfig::loadConfig()
     // check if file exists
     FILE *fis = fopen( LOG_CONFIG_FILE_NAME, "r" );
     if ( ! fis ) {
-        printf( "Log config file is missing !!!\n" );
+        this->Display.DisplayError( "Log config file is missing !!! Exiting." );
         return 0;
     }
     fclose( fis );
@@ -23,15 +30,18 @@ int LogConfig::loadConfig()
     // check first element
     PXMLELEMENT root = xml.FirstChildElement();
     if ( ! root ) {
+        this->Display.DisplayError( "Error reading root element of xml! Exiting" );
         return 0;
     }
     if ( strcmp("log", root->Value()) != 0 ) {
+        this->Display.DisplayError( "XML is not correct! Exiting" );
         return 0;
     }
 
     // parse the log xml
     type = root->FirstChildElement();
     if ( ! type ) {
+        this->Display.DisplayError( "Error reading First Child element of xml! Exiting" );
         return 0;
     }
 

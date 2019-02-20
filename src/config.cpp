@@ -7,6 +7,10 @@
 
 Config::Config()
 {
+    class Display disp;
+
+    this->Display = disp;
+
     this->hostname = "";
     this->ipAddress = "";
     this->path = "";
@@ -107,8 +111,9 @@ int Config::saveConfig()
 
     std::ofstream FileOut( CONFIG_FILE_NAME );
 
-    // cehck if the file is opened
+    // check if the file is opened
     if ( ! FileOut.good() ) {
+        this->Display.DisplayError( "Config file could not be created! Exiting." );
         return 0;
     }
 
@@ -150,11 +155,13 @@ int Config::loadConfig()
 
     // check if file is opened
     if ( ! FileIn.good() ) {
+        this->Display.DisplayError( "Config file not found! Exiting." );
         return 0;
     }
 
     // read host
     if ( ! ( FileIn >> line ) ) {
+        this->Display.DisplayError( "Config for host not found! Exiting." );
         return 0;
     }
     line.erase( 0, 9 );
@@ -162,6 +169,7 @@ int Config::loadConfig()
 
     // read ip address
     if ( ! ( FileIn >> line ) ) {
+        this->Display.DisplayError( "Config for ip address not found! Exiting." );
         return 0;
     }
     line.erase( 0, 11 );
@@ -169,6 +177,7 @@ int Config::loadConfig()
 
     // read application path
     if ( ! ( FileIn >> line ) ) {
+        this->Display.DisplayError( "Config for application path not found! Exiting." );
         return 0;
     }
     line.erase( 0, 5 );
@@ -176,6 +185,7 @@ int Config::loadConfig()
 
     // read the API URL
     if ( ! ( FileIn >> line ) ) {
+        this->Display.DisplayError( "Config for API URL not found! Exiting." );
         return 0;
     }
     line.erase( 0, 8 );
@@ -183,6 +193,7 @@ int Config::loadConfig()
 
     // read the Log Chunk Size
     if ( ! ( FileIn >> line ) ) {
+        this->Display.DisplayError( "Config for Log Chunk Size not found! Exiting." );
         return 0;
     }
     line.erase( 0, 15 );
@@ -191,6 +202,7 @@ int Config::loadConfig()
 
     // read the Upload Delay
     if ( ! ( FileIn >> line ) ) {
+        this->Display.DisplayError( "Config for Upload Delay not found! Exiting." );
         return 0;
     }
     line.erase( 0, 13 );
@@ -199,6 +211,7 @@ int Config::loadConfig()
 
     // read the Upload Iterations
     if ( ! ( FileIn >> line ) ) {
+        this->Display.DisplayError( "Config for Upload Iterations not found! Exiting." );
         return 0;
     }
     line.erase( 0, 18 );

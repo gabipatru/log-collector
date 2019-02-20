@@ -13,11 +13,16 @@
 class LogConfig
 {
 public:
+    LogConfig();
+
     /**
      * Save config to file and load config from file
      */
     int saveConfig();
     int loadConfig();
+
+private:
+    class Display Display;
 };
 
 #include "lib/tinyxml/tinyxml.cpp"

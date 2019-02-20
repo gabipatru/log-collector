@@ -51,8 +51,15 @@ int main (int argc, PCHAR argv[])
     }
 
     // load APP config and Log config
-    Config.loadConfig();
-    LogConfig.loadConfig();
+    result = Config.loadConfig();
+    if ( ! result ) {
+        return LINUX_ERROR;
+    }
+
+    result = LogConfig.loadConfig();
+    if ( ! result ) {
+        return LINUX_ERROR;
+    }
 
     LogUploader.LogParser( LogItems.getCurrentItem() );
 

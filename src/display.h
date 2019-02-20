@@ -23,12 +23,22 @@ public:
     /**
     * Display a tile message
     */
-    void DisplayTitle(CPCHAR);
+    void DisplayTitle( CPCHAR );
+
+    /**
+     * Display an error message
+     */
+    void DisplayError( STRINGCLASS );
+
+    /**
+     * Display an OK message
+     */
+    void DisplayMessage( STRINGCLASS );
 
     /**
      * Display a YES/NO question and return if the user pressed Yes (1) or No (0)
      */
-    int DisplayYesNoQuestion(CPCHAR question);
+    int DisplayYesNoQuestion( CPCHAR question );
 };
 
 #include <stdlib.h>

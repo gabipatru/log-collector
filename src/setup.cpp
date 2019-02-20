@@ -58,7 +58,7 @@ int Setup::Start()
 
     // check if the setup was previously started
     if (this->setupStarted == 1) {
-        printf("Error! Setup already started!\n");
+        this->Display.DisplayError("Error! Setup already started!\n");
         return 0;
     }
     this->setupStarted = 1;
@@ -81,9 +81,12 @@ int Setup::Start()
 
     result = Config.saveConfig();
     if (! result) {
-        printf("Error !!! Config file could not be saved !");
+        this->Display.DisplayError("Error !!! Config file could not be saved !");
         return 0;
     }
+
+    system( CLEAR_SCREEN );
+    this->Display.DisplayMessage("Config file saved.");
 
     return 1;
 }

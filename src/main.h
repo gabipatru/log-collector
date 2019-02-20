@@ -15,9 +15,9 @@
 #include <iostream>
 
 #include "constant.h"
-#include "config.h"
 #include "system.h"
 #include "display.h"
+#include "config.h"
 #include "setup.h"
 #include "log_item.h"
 #include "log_config.h"

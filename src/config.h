@@ -13,10 +13,13 @@
 class Config
 {
 private:
+    class Display Display;
+
     STRINGCLASS hostname;
     STRINGCLASS ipAddress;
     STRINGCLASS path;
     STRINGCLASS apiUrl;
+
     unsigned int logChunkSize;
     unsigned int uploadDelay;
     unsigned int uploadIterations;
