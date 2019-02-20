@@ -19,12 +19,23 @@ public:
     /**
      * Execute a system command and return the output
      */
-    CPCHAR Execute(const char[]);
+    STRINGCLASS Execute( STRINGCLASS );
 
     /**
      * Get the terminal width
      */
     int GetTerminalWidth();
+
+private:
+    /**
+     * Open a pipe, return the pointer
+     */
+    FILE* openPipe( STRINGCLASS );
+
+    /**
+     * Close a pipe
+     */
+    void closePipe( FILE* );
 };
 
 #include <stdexcept>
