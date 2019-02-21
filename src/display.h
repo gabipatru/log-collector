@@ -36,6 +36,11 @@ public:
     void DisplayMessage( STRINGCLASS );
 
     /**
+     * Display an INFO message
+     */
+    void Info( STRINGCLASS );
+
+    /**
      * Display a YES/NO question and return if the user pressed Yes (1) or No (0)
      */
     int DisplayYesNoQuestion( CPCHAR question );

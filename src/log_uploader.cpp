@@ -64,6 +64,9 @@ int LogUploader::LogParser( LogItem Item )
         return 0;
     }
 
+    snprintf( msgBuffer, sizeof( msgBuffer ), "Start processing %s", Item.getPath().c_str() );
+    this->Display.Info( msgBuffer );
+
     // read from log
     i = 0;
     while ( ! file.eof() ) {
