@@ -34,29 +34,34 @@ public:
     /**
      * Construct with type and path
      */
-    LogItem(STRINGCLASS, STRINGCLASS);
+    LogItem( STRINGCLASS, STRINGCLASS );
 
     /**
      * Construct with type, subtype and path
      */
-    LogItem(STRINGCLASS, STRINGCLASS, STRINGCLASS);
+    LogItem( STRINGCLASS, STRINGCLASS, STRINGCLASS );
+
+    /**
+     * Overload operator != to allow comparisons with bools
+     */
+    bool operator==( bool );
 
     /**
      * Setter and Getter for Type
      */
-    void setType(STRINGCLASS);
+    void setType( STRINGCLASS );
     STRINGCLASS getType();
 
     /**
      * Setter and Getter for subType
      */
-    void setSubType(STRINGCLASS);
+    void setSubType( STRINGCLASS );
     STRINGCLASS getSubType();
 
     /**
      * Setter and Getter for Path
      */
-    void setPath(STRINGCLASS);
+    void setPath( STRINGCLASS );
     STRINGCLASS getPath();
 
     /**
@@ -82,13 +87,13 @@ public:
     /**
      * Getter and Setter for Item
      */
-    void setItem(LogItem);
+    void setItem( LogItem );
     LogItem getItem();
 
     /**
      * Set the next item in the list
      */
-    void setNextPointer(LogList *);
+    void setNextPointer( LogList* );
     LogList *getNextPointer();
 };
 
@@ -108,8 +113,8 @@ public:
     /**
      * Create an item
      */
-    void CreateItem(LogItem);
-    void CreateItem(STRINGCLASS, STRINGCLASS, STRINGCLASS);
+    void CreateItem( LogItem );
+    void CreateItem( STRINGCLASS, STRINGCLASS, STRINGCLASS );
 
     /**
      * Set the current item to the head

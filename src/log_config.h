@@ -10,6 +10,9 @@
 
 #define LOG_CONFIG_FILE_NAME "log.conf"
 
+#define ONLY_LOG_ARGUMENT1 "-L"
+#define ONLY_LOG_ARGUMENT2 "--log"
+
 class LogConfig
 {
 public:

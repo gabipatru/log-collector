@@ -15,16 +15,29 @@ private:
 
     int logChunkSize;
 
+    STRINGCLASS onlyLog;                                // if defined, only this log will be processed
+
     /**
      * Build the POST body string
      */
-    STRINGCLASS buildPost(LogItem, STRINGCLASS&);
+    STRINGCLASS buildPost( LogItem, STRINGCLASS& );
 
 public:
     /*
      * Default Constructor
      */
     LogUploader();
+
+    /**
+     * Getter and Setter for Only Log
+     */
+    void setOnlyLog( STRINGCLASS );
+    STRINGCLASS getOnlyLog();
+
+    /**
+     * Cycle through the logs and call the parser
+     */
+    void Cycle();
 
     /*
      * Log Parse - read lines from log

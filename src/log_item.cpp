@@ -15,21 +15,38 @@ LogItem::LogItem()
     this->path = "";
 }
 
-LogItem::LogItem(STRINGCLASS type, STRINGCLASS path)
+LogItem::LogItem( STRINGCLASS type, STRINGCLASS path )
 {
     this->type = type;
     this->subType = "";
     this->path = path;
 }
 
-LogItem::LogItem(STRINGCLASS type, STRINGCLASS subType, STRINGCLASS path)
+LogItem::LogItem( STRINGCLASS type, STRINGCLASS subType, STRINGCLASS path )
 {
     this->type = type;
     this->subType = subType;
     this->path = path;
 }
 
-void LogItem::setType(STRINGCLASS type)
+bool LogItem::operator==( bool compare )
+{
+    if ( compare == true ) {
+        if (this->getPath().compare("NULL")==0 && this->getSubType().compare("NULL")==0 && this->getType().compare("NULL")==0) {
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        if (this->getPath().compare("NULL")==0 && this->getSubType().compare("NULL")==0 && this->getType().compare("NULL")==0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+void LogItem::setType( STRINGCLASS type )
 {
     this->type = type;
 }
@@ -39,7 +56,7 @@ STRINGCLASS LogItem::getType()
     return this->type;
 }
 
-void LogItem::setSubType(STRINGCLASS subType)
+void LogItem::setSubType( STRINGCLASS subType )
 {
     this->subType = subType;
 }
@@ -49,7 +66,7 @@ STRINGCLASS LogItem::getSubType()
     return this->subType;
 }
 
-void LogItem::setPath(STRINGCLASS path)
+void LogItem::setPath( STRINGCLASS path )
 {
     this->path = path;
 }
@@ -83,7 +100,7 @@ LogList::LogList()
     this->pNext = NULL;
 }
 
-void LogList::setItem(LogItem Item)
+void LogList::setItem( LogItem Item )
 {
     this->Item = Item;
 }
@@ -93,7 +110,7 @@ LogItem LogList::getItem()
     return this->Item;
 }
 
-void LogList::setNextPointer(PLOGLIST pItem)
+void LogList::setNextPointer( PLOGLIST pItem )
 {
     this->pNext = pItem;
 }
@@ -113,32 +130,32 @@ LogChain::LogChain()
     this->pCurrent = NULL;
 }
 
-void LogChain::CreateItem(LogItem Item)
+void LogChain::CreateItem( LogItem Item )
 {
     PLOGLIST pNewListItem = new LogList;
 
     // copy the data
-    pNewListItem->setItem(Item);
+    pNewListItem->setItem( Item );
 
     // if the head is null, this will be the first item
-    if (this->pHead == NULL) {
+    if ( this->pHead == NULL ) {
         this->pHead = pNewListItem;
         this->pCurrent = pNewListItem;
     } else {
-        this->pCurrent->setNextPointer(pNewListItem);
+        this->pCurrent->setNextPointer( pNewListItem );
         this->pCurrent = pNewListItem;
     }
 }
 
-void LogChain::CreateItem(STRINGCLASS type, STRINGCLASS subType, STRINGCLASS path)
+void LogChain::CreateItem( STRINGCLASS type, STRINGCLASS subType, STRINGCLASS path )
 {
     LogItem Item;
 
-    Item.setType(type);
-    Item.setSubType(subType);
-    Item.setPath(path);
+    Item.setType( type );
+    Item.setSubType( subType );
+    Item.setPath( path );
 
-    this->CreateItem(Item);
+    this->CreateItem( Item );
 }
 
 void LogChain::Reset()
@@ -161,9 +178,9 @@ LogItem LogChain::getCurrentItem()
 
 LogItem LogChain::getCurrentItemAndInc()
 {
-    LogItem Item("NULL", "NULL", "NULL");
+    LogItem Item( "NULL", "NULL", "NULL" );
 
-    if (this->pCurrent != NULL) {
+    if ( this->pCurrent != NULL ) {
         Item = this->pCurrent->getItem();
         this->pCurrent = this->pCurrent->getNextPointer();
     }

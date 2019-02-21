@@ -12,23 +12,55 @@ LogUploader::LogUploader()
     this->Display = disp;
 
     this->logChunkSize = 32 * 1024;
+    this->onlyLog = "";
+}
+
+void LogUploader::setOnlyLog( STRINGCLASS only )
+{
+    this->onlyLog = only;
+}
+
+STRINGCLASS LogUploader::getOnlyLog()
+{
+    return this->onlyLog;
+}
+
+void LogUploader::Cycle()
+{
+    class LogItem Item;
+
+    LogItems.Reset();
+
+    Item = LogItems.getCurrentItemAndInc();
+
+    while( Item == true ) {
+        // check if we must process this log
+        if (this->getOnlyLog().length() > 0 && this->getOnlyLog().compare( Item.getPath() ) != 0) {
+            Item = LogItems.getCurrentItemAndInc();
+            continue;
+        }
+        this->LogParser( Item );
+
+        Item = LogItems.getCurrentItemAndInc();
+    }
 }
 
 int LogUploader::LogParser( LogItem Item )
 {
+    char msgBuffer[200];
     STRINGCLASS buffer;
     std::ifstream file( Item.getPath().c_str() );
     int i;
 
-
     if ( ! Item.Validate() ) {
-        printf( "Item sent to logparser is not valid. Stopping logparser for this item !\n" );
+        this->Display.DisplayError( "Item sent to logparser is not valid. Stopping logparser for this item !" );
         return 0;
     }
 
     // check if the log file actually exists
     if ( ! file ) {
-        printf( "The Item's log file does not exist (%s)\n", Item.getPath().c_str() );
+        snprintf( msgBuffer, sizeof( msgBuffer ), "The Item's log file does not exist (%s)", Item.getPath().c_str() );
+        this->Display.DisplayError( msgBuffer );
         return 0;
     }
 

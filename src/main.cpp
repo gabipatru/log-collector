@@ -11,11 +11,11 @@
 
 #include "main.h"
 
-int main (int argc, PCHAR argv[])
+int main ( int argc, PCHAR argv[] )
 {
     // vars
     int i, result;
-    LogItem Item("NULL", "NULL", "NULL");
+    LogItem Item( "NULL", "NULL", "NULL" );
 
     STRINGCLASS argument;
 
@@ -23,30 +23,42 @@ int main (int argc, PCHAR argv[])
     Help Help;
     LogConfig LogConfig;
     LogUploader LogUploader;
+    class Display Display;
 
     // check command line arguments
-    for (i=0; i<argc; i++) {
+    for ( i=0; i<argc; i++ ) {
         argument = argv[i];
 
         // check if we need to run the setup
-        if (argument.compare(SETUP_ARGUMNET1) == 0 || argument.compare(SETUP_ARGUMENT2) == 0) {
-            if (i != 1 || argc > 2) {
+        if ( argument.compare( SETUP_ARGUMNET1 ) == 0 || argument.compare( SETUP_ARGUMENT2 ) == 0 ) {
+            if ( i != 1 || argc > 2 ) {
                 return LINUX_ERROR;
             }
 
             result = Setup.Start();
             if ( ! result ) {
-                printf("\nSomething went wrong during setup !!!\n");
+                printf( "\nSomething went wrong during setup !!!\n" );
             }
 
             return LINUX_NO_ERROR;
         }
 
         // check if we have to display the help
-        if (argument.compare(HELP_ARGUMENT1) == 0 || argument.compare(HELP_ARGUMENT2) == 0) {
+        if ( argument.compare( HELP_ARGUMENT1 ) == 0 || argument.compare( HELP_ARGUMENT2 ) == 0 ) {
             Help.DisplayHelp();
 
             return LINUX_NO_ERROR;
+        }
+
+        // check if only one log has to be processed
+        if ( argument.compare( ONLY_LOG_ARGUMENT1 ) == 0 || argument.compare( ONLY_LOG_ARGUMENT2 ) == 0 ) {
+            // check if the next param exists
+            if ( i+1 < argc ) {
+                LogUploader.setOnlyLog( argv[i+1] );
+            } else {
+                Display.DisplayError( "Improper use of log parameter" );
+                return LINUX_ERROR;
+            }
         }
     }
 
@@ -61,8 +73,7 @@ int main (int argc, PCHAR argv[])
         return LINUX_ERROR;
     }
 
-    //LogItems.Reset();
-    LogUploader.LogParser( LogItems.getCurrentItem() );
+    LogUploader.Cycle();
 
     return LINUX_NO_ERROR;
 }
