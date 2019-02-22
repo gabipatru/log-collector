@@ -35,7 +35,7 @@ typedef std::string STRINGCLASS;
 #define LOG_CHUNK_SIZE 32 // Size in KB
 #define MAX_LINES_READ 10 // the maximum lines to be read from a file
 #define UPLOAD_DELAY 100 // miliseconds
-#define UPLOAD_ITERATIONS 10 // number of iterations per log
+#define MAX_RUNTIME 1 // number of iterations per log
 
 /**
  * Running on Linux or Windows ?

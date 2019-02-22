@@ -45,6 +45,11 @@ void Display::Info( STRINGCLASS message )
     printf( " [ %sINFO%s ] %s \n", LINUX_TERMINAL_LIGHTPURPLE, LINUX_TERMINAL_NOCOLOR, message.c_str() );
 }
 
+void Display::Warning( STRINGCLASS message )
+{
+    printf( " [ %sWARNING%s ] %s \n", LINUX_TERMINAL_YELLOW, LINUX_TERMINAL_NOCOLOR, message.c_str() );
+}
+
 int Display::DisplayYesNoQuestion( CPCHAR question )
 {
     char c;

@@ -27,6 +27,7 @@ STRINGCLASS LogUploader::getOnlyLog()
 
 void LogUploader::Cycle()
 {
+    int result;
     class LogItem Item;
 
     LogItems.Reset();
@@ -39,7 +40,10 @@ void LogUploader::Cycle()
             Item = LogItems.getCurrentItemAndInc();
             continue;
         }
-        this->LogParser( Item );
+        result = this->LogParser( Item );
+        if ( result = 0 ) {
+            return;
+        }
 
         Item = LogItems.getCurrentItemAndInc();
     }
@@ -50,7 +54,7 @@ int LogUploader::LogParser( LogItem Item )
     char msgBuffer[200];
     STRINGCLASS buffer;
     std::ifstream file( Item.getPath().c_str() );
-    int i;
+    double maxRunTime = (double) Config.getApplicationRuntime();
 
     if ( ! Item.Validate() ) {
         this->Display.DisplayError( "Item sent to logparser is not valid. Stopping logparser for this item !" );
@@ -68,8 +72,13 @@ int LogUploader::LogParser( LogItem Item )
     this->Display.Info( msgBuffer );
 
     // read from log
-    i = 0;
     while ( ! file.eof() ) {
+        // if the maxtime is reached, end parsing
+        if ( maxRunTime < Application.MeasureRunTime() ) {
+            this->Display.Warning( "Maximum execution time exceded. Stopping" );
+            return 0;
+        }
+
         // read data from log
         this->LogReader( &file, buffer );
 
@@ -79,12 +88,13 @@ int LogUploader::LogParser( LogItem Item )
         // reset data
         buffer = "";
 
-        i++;
-        if ( i >= Config.getUploadIterations() ) {
-            break;
+        // if the maxtime is reached, end parsing
+        if ( maxRunTime < Application.MeasureRunTime() ) {
+            this->Display.Warning( "Maximum execution time exceded. Stopping" );
+            return 0;
         }
 
-        usleep( Config.getUploadDelay() );
+        Application.Sleep();
     }
 
     file.close();

@@ -17,7 +17,7 @@ Config::Config()
     this->apiUrl = "";
     this->logChunkSize = LOG_CHUNK_SIZE;
     this->uploadDelay = UPLOAD_DELAY;
-    this->uploadIterations = UPLOAD_ITERATIONS;
+    this->applicationRuntime = MAX_RUNTIME;
     this->logConfigFileName = "";
 }
 
@@ -81,14 +81,14 @@ unsigned int Config::getUploadDelay()
     return this->uploadDelay;
 }
 
-void Config::setUploadIterations( unsigned int nr )
+void Config::setApplicationRuntime( unsigned int nr )
 {
-    this->uploadIterations = nr;
+    this->applicationRuntime = nr;
 }
 
-unsigned int Config::getUploadIterations()
+unsigned int Config::getApplicationRuntime()
 {
-    return this->uploadIterations;
+    return this->applicationRuntime;
 }
 
 void Config::setLogConfigFileName( STRINGCLASS name )
@@ -149,8 +149,8 @@ int Config::saveConfig()
     FileOut << this->prepareForSave( "upload_delay", buffer );
 
     // save the Upload Iterations
-    snprintf( buffer, sizeof( buffer ), "%u", this->getUploadIterations() );
-    FileOut << this->prepareForSave( "upload_iterations", buffer );
+    snprintf( buffer, sizeof( buffer ), "%u", this->getApplicationRuntime() );
+    FileOut << this->prepareForSave( "application_runtime", buffer );
 
     FileOut.close();
 
@@ -227,9 +227,9 @@ int Config::loadConfig()
         this->Display.DisplayError( "Config for Upload Iterations not found! Exiting." );
         return 0;
     }
-    line.erase( 0, 18 );
+    line.erase( 0, 20 );
     buffer = (int) strtoul( line.c_str(), &ptr, 10 );
-    this->setUploadIterations( buffer );
+    this->setApplicationRuntime( buffer );
 
     return 1;
 }

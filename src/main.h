@@ -19,6 +19,7 @@
 #include "display.h"
 #include "config.h"
 #include "setup.h"
+#include "application.h"
 #include "log_item.h"
 #include "log_config.h"
 #include "log_uploader.h"

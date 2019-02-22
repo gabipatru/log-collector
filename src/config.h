@@ -23,7 +23,7 @@ private:
 
     unsigned int logChunkSize;
     unsigned int uploadDelay;
-    unsigned int uploadIterations;
+    unsigned int applicationRuntime;
 
     /**
      * Prepare a config to be saved in the file
@@ -70,10 +70,10 @@ public:
     unsigned int getUploadDelay();
 
     /**
-     * Getter and Setter for Upload Iterations
+     * Getter and Setter for Application Runtime
      */
-    void setUploadIterations( unsigned int );
-    unsigned int getUploadIterations();
+    void setApplicationRuntime( unsigned int );
+    unsigned int getApplicationRuntime();
 
     /**
      * Getter and Setter for Log Config File Name
