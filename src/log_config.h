@@ -12,6 +12,8 @@
 
 #define ONLY_LOG_ARGUMENT1 "-L"
 #define ONLY_LOG_ARGUMENT2 "--log"
+#define CUSTOM_LOG_CONFIG_ARGUMENT1 "-C"
+#define CUSTOM_LOG_CONFIG_ARGUMENT2 "--config"
 
 class LogConfig
 {

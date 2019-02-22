@@ -15,9 +15,16 @@ LogConfig::LogConfig()
 int LogConfig::loadConfig()
 {
     PXMLELEMENT type, subtype, pathitem;
+    STRINGCLASS logConfigFile;
+
+    if ( Config.getLogConfigFileName().length() != 0 ) {
+        logConfigFile = Config.getLogConfigFileName();
+    } else {
+        logConfigFile = LOG_CONFIG_FILE_NAME;
+    }
 
     // check if file exists
-    FILE *fis = fopen( LOG_CONFIG_FILE_NAME, "r" );
+    FILE *fis = fopen( logConfigFile.c_str(), "r" );
     if ( ! fis ) {
         this->Display.DisplayError( "Log config file is missing !!! Exiting." );
         return 0;

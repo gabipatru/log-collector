@@ -19,6 +19,7 @@ private:
     STRINGCLASS ipAddress;
     STRINGCLASS path;
     STRINGCLASS apiUrl;
+    STRINGCLASS logConfigFileName;
 
     unsigned int logChunkSize;
     unsigned int uploadDelay;
@@ -73,6 +74,12 @@ public:
      */
     void setUploadIterations( unsigned int );
     unsigned int getUploadIterations();
+
+    /**
+     * Getter and Setter for Log Config File Name
+     */
+    void setLogConfigFileName( STRINGCLASS );
+    STRINGCLASS getLogConfigFileName();
 
     /**
      * Save config to file and load config from file

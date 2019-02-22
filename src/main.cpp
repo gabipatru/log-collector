@@ -56,7 +56,18 @@ int main ( int argc, PCHAR argv[] )
             if ( i+1 < argc ) {
                 LogUploader.setOnlyLog( argv[i+1] );
             } else {
-                Display.DisplayError( "Improper use of log parameter" );
+                Display.DisplayError( "Improper use of log parameter. Should be followed by log path" );
+                return LINUX_ERROR;
+            }
+        }
+
+        // check if a certain log config has to be loaded
+        if ( argument.compare( CUSTOM_LOG_CONFIG_ARGUMENT1 ) == 0 || argument.compare( CUSTOM_LOG_CONFIG_ARGUMENT2 ) == 0 ) {
+            // check if the next param exists
+            if ( i+1 < argc ) {
+                Config.setLogConfigFileName( argv[i+1] );
+            } else {
+                Display.DisplayError( "Improper use of config parameter. Should be followed by config path" );
                 return LINUX_ERROR;
             }
         }

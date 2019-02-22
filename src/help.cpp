@@ -21,6 +21,7 @@ void Help::DisplayHelp()
     printf( "      -H    --help                        Display this help\n" );
     printf( "      -S    --setup                       Run the setup\n" );
     printf( "      -L    --log                         Process only the log specified by this path" );
+    printf( "      -C    --config                      Use this file as a log config" );
 
     printf( "\n\n\n" );
 }

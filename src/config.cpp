@@ -18,6 +18,7 @@ Config::Config()
     this->logChunkSize = LOG_CHUNK_SIZE;
     this->uploadDelay = UPLOAD_DELAY;
     this->uploadIterations = UPLOAD_ITERATIONS;
+    this->logConfigFileName = "";
 }
 
 void Config::setHostname( STRINGCLASS hostname )
@@ -88,6 +89,16 @@ void Config::setUploadIterations( unsigned int nr )
 unsigned int Config::getUploadIterations()
 {
     return this->uploadIterations;
+}
+
+void Config::setLogConfigFileName( STRINGCLASS name )
+{
+    this->logConfigFileName = name;
+}
+
+STRINGCLASS Config::getLogConfigFileName()
+{
+    return this->logConfigFileName;
 }
 
 STRINGCLASS Config::prepareForSave( STRINGCLASS configName, STRINGCLASS configValue )
