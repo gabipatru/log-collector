@@ -98,6 +98,8 @@ int LogUploader::LogParser( LogItem Item )
     }
 
     file.close();
+
+    return 1;
 }
 
 void LogUploader::LogReader( std::ifstream *file, STRINGCLASS &buffer )
