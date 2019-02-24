@@ -180,6 +180,7 @@ STRINGCLASS LogUploader::buildPost( LogItem Item, STRINGCLASS& buffer )
     PostFields = PostFields + "&subType=" + Item.getSubType().c_str();
     PostFields = PostFields + "&hostname=" + Config.getHostname().c_str();
     PostFields = PostFields + "&ip_address=" + Config.getIpAddress().c_str();
+    PostFields = PostFields + "&client=" + Config.getClient().c_str();
     PostFields = PostFields + "&payload=" + buffer.c_str();
 
     return PostFields;

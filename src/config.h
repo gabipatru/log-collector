@@ -20,6 +20,7 @@ private:
     STRINGCLASS path;
     STRINGCLASS apiUrl;
     STRINGCLASS logConfigFileName;
+    STRINGCLASS client;
 
     unsigned int logChunkSize;
     unsigned int uploadDelay;
@@ -32,6 +33,12 @@ private:
 
 public:
     Config();
+
+    /**
+     * Getter and Setter for Client
+     */
+    void setClient( STRINGCLASS );
+    STRINGCLASS getClient();
 
     /**
      * Getter and Setter for Hostname

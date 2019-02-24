@@ -31,15 +31,18 @@ STRINGCLASS Setup::getTitleForStep(int step)
     // titles for each step
     switch (step) {
     case 1:
-        Title = "Get hostname";
+        Title = "Get client";
         break;
     case 2:
-        Title = "Get ip address";
+        Title = "Get hostname";
         break;
     case 3:
-        Title = "Get Application Path";
+        Title = "Get ip address";
         break;
     case 4:
+        Title = "Get Application Path";
+        break;
+    case 5:
         Title = "Set up API POST URL";
         break;
     default:
@@ -76,6 +79,9 @@ int Setup::Start()
         return 0;
     }
     if (this->Step4() != 1) {
+        return 0;
+    }
+    if (this->Step5() != 1) {
         return 0;
     }
 
@@ -116,6 +122,21 @@ int Setup::Step0()
 
 int Setup::Step1()
 {
+    STRINGCLASS client, Title;
+
+    Title = this->getTitleForStep( this->getNextStep() );
+    this->Display.DisplayTitle( Title.c_str() );
+
+    printf( "Enter client name: " );
+    std::cin >> client;
+
+    Config.setClient( client );
+
+    return 1;
+}
+
+int Setup::Step2()
+{
     int correctHost;
     STRINGCLASS hostname, Title;
 
@@ -143,7 +164,7 @@ int Setup::Step1()
     return 1;
 }
 
-int Setup::Step2()
+int Setup::Step3()
 {
     int correctIpAddress;
     STRINGCLASS ipAddress, Title;
@@ -172,7 +193,7 @@ int Setup::Step2()
     return 1;
 }
 
-int Setup::Step3()
+int Setup::Step4()
 {
     int correctPath;
     STRINGCLASS path, Title;
@@ -200,7 +221,7 @@ int Setup::Step3()
     return 1;
 }
 
-int Setup::Step4()
+int Setup::Step5()
 {
     int correctApi;
     STRINGCLASS url, Title;

@@ -17,7 +17,7 @@
 #define SETUP_DEFAULT_PATH "/home/gabi/log-client"
 #define SETUP_DEFAULT_API_URL "http://127.0.0.1:8080/upload"
 
-#define SETUP_NUMBER_OF_STEPS 4
+#define SETUP_NUMBER_OF_STEPS 5
 
 class Setup
 {
@@ -37,7 +37,7 @@ private:
     /**
      * Return a string representing the title for the step
      */
-    STRINGCLASS getTitleForStep(int);
+    STRINGCLASS getTitleForStep( int );
 
     /**
      * Step 0 - display setup start message and check if the config file exists
@@ -45,24 +45,29 @@ private:
     int Step0();
 
     /**
-     * Step 1 - get hostname
+     * Step1 - get the client
      */
     int Step1();
 
     /**
-     * Step 2 - get ip address
+     * Step 2 - get hostname
      */
     int Step2();
 
     /**
-     * Step 3 - get the application path
+     * Step 3 - get ip address
      */
     int Step3();
 
     /**
-     * Step 4 - set up the API POST URL
+     * Step 4 - get the application path
      */
     int Step4();
+
+    /**
+     * Step 5 - set up the API POST URL
+     */
+    int Step5();
 
 public:
     /**

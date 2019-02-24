@@ -19,6 +19,7 @@ Config::Config()
     this->uploadDelay = UPLOAD_DELAY;
     this->applicationRuntime = MAX_RUNTIME;
     this->logConfigFileName = "";
+    this->client = "";
 }
 
 void Config::setHostname( STRINGCLASS hostname )
@@ -101,6 +102,16 @@ STRINGCLASS Config::getLogConfigFileName()
     return this->logConfigFileName;
 }
 
+void Config::setClient( STRINGCLASS client )
+{
+    this->client = client;
+}
+
+STRINGCLASS Config::getClient()
+{
+    return this->client;
+}
+
 STRINGCLASS Config::prepareForSave( STRINGCLASS configName, STRINGCLASS configValue )
 {
     STRINGCLASS buffer;
@@ -127,6 +138,9 @@ int Config::saveConfig()
         this->Display.DisplayError( "Config file could not be created! Exiting." );
         return 0;
     }
+
+    // save cofig for client
+    FileOut << this->prepareForSave( "client", this->getClient() );
 
     // save config for hostname
     FileOut << this->prepareForSave( "hostname", this->getHostname() );
@@ -170,9 +184,17 @@ int Config::loadConfig()
         return 0;
     }
 
-    // read host
+    // read client
     if ( ! ( FileIn >> line ) ) {
-        this->Display.DisplayError( "Config for host not found! Exiting." );
+        this->Display.DisplayError( "Config for client not found! Exiting." );
+        return 0;
+    }
+    line.erase( 0, 7 );
+    this->setClient( line );
+
+    // read hostname
+    if ( ! ( FileIn >> line ) ) {
+        this->Display.DisplayError( "Config for hostname not found! Exiting." );
         return 0;
     }
     line.erase( 0, 9 );
