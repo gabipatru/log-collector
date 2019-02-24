@@ -127,6 +127,7 @@ int LogUploader::Upload( LogItem Item, STRINGCLASS& buffer )
     CURLcode response;
     STRINGCLASS PostFields( "" );
     char msgBuffer[200];
+    long httpCode;
 
     if ( ! Item.Validate() ) {
         return 0;
@@ -148,20 +149,23 @@ int LogUploader::Upload( LogItem Item, STRINGCLASS& buffer )
         // make request, get response code
         response = curl_easy_perform( curl );
         if ( response != CURLE_OK ) {
-            printf( "\nError while performing HTTP request. Response code: %d \n", response );
+            this->uploadError( curl, &buffer, response );
+            return 0;
+        }
 
-            curl_easy_cleanup( curl );
-            curl_global_cleanup();
-
-            // display error message
-            snprintf( msgBuffer, sizeof( msgBuffer ), "Failed to upload %s%d%s bytes", LINUX_TERMINAL_WHITE, buffer.length(), LINUX_TERMINAL_NOCOLOR );
-            this->Display.DisplayError( msgBuffer );
-
+        // check status code
+        curl_easy_getinfo ( curl, CURLINFO_RESPONSE_CODE, &httpCode );
+        if ( httpCode != 200 ) {
+            this->uploadError( curl, &buffer, httpCode );
             return 0;
         }
 
         // display successful upload message
-        snprintf( msgBuffer, sizeof( msgBuffer ), "Uploaded %s%d%s bytes", LINUX_TERMINAL_WHITE, buffer.length(), LINUX_TERMINAL_NOCOLOR );
+        snprintf(
+                msgBuffer, sizeof( msgBuffer ),
+                "Uploaded %s%d%s bytes",
+                LINUX_TERMINAL_WHITE, buffer.length(), LINUX_TERMINAL_NOCOLOR
+        );
         this->Display.DisplayMessage( msgBuffer );
 
         curl_easy_cleanup( curl );
@@ -170,6 +174,23 @@ int LogUploader::Upload( LogItem Item, STRINGCLASS& buffer )
     curl_global_cleanup();
 
     return 1;
+}
+
+void LogUploader::uploadError( CURL* curl, STRINGCLASS* buffer, long code )
+{
+    char msgBuffer[200];
+
+    printf( "\nError while performing HTTP request. Response code: %d \n", code );
+
+    curl_easy_cleanup( curl );
+    curl_global_cleanup();
+
+    snprintf(
+            msgBuffer, sizeof( msgBuffer ),
+            "Failed to upload %s%d%s bytes",
+            LINUX_TERMINAL_WHITE, buffer->length(), LINUX_TERMINAL_NOCOLOR
+    );
+    this->Display.DisplayError( msgBuffer );
 }
 
 STRINGCLASS LogUploader::buildPost( LogItem Item, STRINGCLASS& buffer )

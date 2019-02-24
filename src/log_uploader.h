@@ -8,6 +8,8 @@
 #ifndef SRC_LOG_UPLOADER_H_
 #define SRC_LOG_UPLOADER_H_
 
+#include <curl/curl.h>
+
 class LogUploader
 {
 private:
@@ -21,6 +23,11 @@ private:
      * Build the POST body string
      */
     STRINGCLASS buildPost( LogItem, STRINGCLASS& );
+
+    /**
+     * Handle upload errors
+     */
+    void uploadError( CURL*, STRINGCLASS*, long );
 
 public:
     /*
@@ -56,7 +63,6 @@ public:
 };
 
 #include <sstream>
-#include <curl/curl.h>
 
 #include "log_uploader.cpp"
 
