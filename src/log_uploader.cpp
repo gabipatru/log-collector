@@ -12,6 +12,7 @@ LogUploader::LogUploader()
     this->Display = disp;
 
     this->logChunkSize = 32 * 1024;
+    this->linesRead = 0;
     this->onlyLog = "";
 }
 
@@ -107,11 +108,15 @@ void LogUploader::LogReader( std::ifstream *file, STRINGCLASS &buffer )
     STRINGCLASS line;
     unsigned long bytesRead = 0;
 
+    this->linesRead = 0;
+
     while ( ! file->eof() ) {
         std::getline( *file, line );
 
         buffer += line;
         buffer += "\n";
+
+        this->linesRead = this->linesRead++;
 
         // calculate new value of bytes read
         bytesRead = bytesRead + line.length();
@@ -128,6 +133,7 @@ int LogUploader::Upload( LogItem Item, STRINGCLASS& buffer )
     STRINGCLASS PostFields( "" );
     char msgBuffer[200];
     long httpCode;
+    double uploadTime;
 
     if ( ! Item.Validate() ) {
         return 0;
@@ -137,6 +143,8 @@ int LogUploader::Upload( LogItem Item, STRINGCLASS& buffer )
     curl = curl_easy_init();
 
     if ( curl ) {
+        Application.MarkUploadStart();
+
         // POST URL
         curl_easy_setopt( curl, CURLOPT_URL, Config.getApiUrl().c_str() );
 
@@ -160,11 +168,14 @@ int LogUploader::Upload( LogItem Item, STRINGCLASS& buffer )
             return 0;
         }
 
+        uploadTime = Application.MeasureUploadTime();
+
         // display successful upload message
         snprintf(
                 msgBuffer, sizeof( msgBuffer ),
-                "Uploaded %s%d%s bytes",
-                LINUX_TERMINAL_WHITE, buffer.length(), LINUX_TERMINAL_NOCOLOR
+                "Uploaded %s%d%s bytes in %s%7.3f%s ms",
+                LINUX_TERMINAL_WHITE, buffer.length(), LINUX_TERMINAL_NOCOLOR,
+                LINUX_TERMINAL_WHITE, uploadTime, LINUX_TERMINAL_NOCOLOR
         );
         this->Display.DisplayMessage( msgBuffer );
 

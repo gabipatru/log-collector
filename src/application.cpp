@@ -31,3 +31,18 @@ void Application::Sleep()
 
     usleep( Config.getUploadDelay() );
 }
+
+void Application::MarkUploadStart()
+{
+    this->uploadStart = clock();
+}
+
+double Application::MeasureUploadTime()
+{
+    double time;
+
+    // upload time, will be in miliseconds
+    time = (double) ( clock() - this->uploadStart ) / CLOCKS_PER_SEC;
+
+    return time;
+}

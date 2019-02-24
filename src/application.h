@@ -24,12 +24,19 @@ public:
     double MeasureRunTime();
 
     /**
+     * Functions for marking upload start and mesauring upload time in miliseconds
+     */
+    void MarkUploadStart();
+    double MeasureUploadTime();
+
+    /**
      * Idle for a number of miliseconds
      */
     void Sleep();
 
 private:
     clock_t start;
+    clock_t uploadStart;
     unsigned long int slept;
 };
 

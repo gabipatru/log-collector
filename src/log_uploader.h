@@ -15,7 +15,8 @@ class LogUploader
 private:
     class Display Display;
 
-    int logChunkSize;
+    unsigned int logChunkSize;
+    unsigned long int linesRead;
 
     STRINGCLASS onlyLog;                                // if defined, only this log will be processed
 
