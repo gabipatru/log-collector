@@ -15,7 +15,7 @@ int main ( int argc, PCHAR argv[] )
 {
     // vars
     int i, result;
-    LogItem Item( "NULL", "NULL", "NULL" );
+    LogItem Item;
 
     STRINGCLASS argument;
 

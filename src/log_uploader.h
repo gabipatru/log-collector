@@ -64,6 +64,7 @@ public:
 };
 
 #include <sstream>
+#include <sys/stat.h>
 
 #include "log_uploader.cpp"
 

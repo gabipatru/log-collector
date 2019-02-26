@@ -13,32 +13,37 @@ LogItem::LogItem()
     this->type = "";
     this->subType = "";
     this->path = "";
+    this->line = 0;
+    this->createdAt = "";
 }
 
-LogItem::LogItem( STRINGCLASS type, STRINGCLASS path )
-{
-    this->type = type;
-    this->subType = "";
-    this->path = path;
-}
-
-LogItem::LogItem( STRINGCLASS type, STRINGCLASS subType, STRINGCLASS path )
+LogItem::LogItem( STRINGCLASS type, STRINGCLASS subType, STRINGCLASS path, unsigned long int line, STRINGCLASS createdAt )
 {
     this->type = type;
     this->subType = subType;
     this->path = path;
+    this->line = line;
+    this->createdAt = createdAt;
 }
 
 bool LogItem::operator==( bool compare )
 {
     if ( compare == true ) {
-        if (this->getPath().compare("NULL")==0 && this->getSubType().compare("NULL")==0 && this->getType().compare("NULL")==0) {
+        if ( this->getPath().length() == 0
+                && this->getSubType().length() == 0
+                && this->getType().length() == 0
+                && this->getLine() == 0
+                && this->getCreatedAt().length() == 0) {
             return false;
         } else {
             return true;
         }
     } else {
-        if (this->getPath().compare("NULL")==0 && this->getSubType().compare("NULL")==0 && this->getType().compare("NULL")==0) {
+        if ( this->getPath().length() == 0
+                && this->getSubType().length() == 0
+                && this->getType().length() == 0
+                && this->getLine() == 0
+                && this->getCreatedAt().length() == 0) {
             return true;
         } else {
             return false;
@@ -74,6 +79,26 @@ void LogItem::setPath( STRINGCLASS path )
 STRINGCLASS LogItem::getPath()
 {
     return this->path;
+}
+
+void LogItem::setLine( unsigned long int line )
+{
+    this->line = line;
+}
+
+unsigned long int LogItem::getLine()
+{
+    return this->line;
+}
+
+void LogItem::setCreatedAt( STRINGCLASS date )
+{
+    this->createdAt = date;
+}
+
+STRINGCLASS LogItem::getCreatedAt()
+{
+    return this->createdAt;
 }
 
 int LogItem::Validate()
@@ -147,13 +172,15 @@ void LogChain::CreateItem( LogItem Item )
     }
 }
 
-void LogChain::CreateItem( STRINGCLASS type, STRINGCLASS subType, STRINGCLASS path )
+void LogChain::CreateItem( STRINGCLASS type, STRINGCLASS subType, STRINGCLASS path, unsigned long int line, STRINGCLASS date )
 {
     LogItem Item;
 
     Item.setType( type );
     Item.setSubType( subType );
     Item.setPath( path );
+    Item.setLine( line );
+    Item.setCreatedAt( date );
 
     this->CreateItem( Item );
 }
@@ -178,7 +205,7 @@ LogItem LogChain::getCurrentItem()
 
 LogItem LogChain::getCurrentItemAndInc()
 {
-    LogItem Item( "NULL", "NULL", "NULL" );
+    LogItem Item;
 
     if ( this->pCurrent != NULL ) {
         Item = this->pCurrent->getItem();

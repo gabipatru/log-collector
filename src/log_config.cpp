@@ -14,8 +14,10 @@ LogConfig::LogConfig()
 
 int LogConfig::loadConfig()
 {
-    PXMLELEMENT type, subtype, pathitem;
+    PXMLELEMENT type, subtype, item, path, line, createdAt, pathitem;
     STRINGCLASS logConfigFile;
+    char* ptr;
+    unsigned long int nrLines;
 
     if ( Config.getLogConfigFileName().length() != 0 ) {
         logConfigFile = Config.getLogConfigFileName();
@@ -60,16 +62,31 @@ int LogConfig::loadConfig()
 
         // subtypes
         while ( subtype ) {
-            pathitem = subtype->FirstChildElement();
-            if ( ! pathitem ) {
+            item = subtype->FirstChildElement();
+            if ( ! item ) {
                 continue;
             }
 
             // items
-            while ( pathitem ) {
-                LogItems.CreateItem( type->Value(), subtype->Value(), pathitem->GetText() );
+            while ( item ) {
+                path = item->FirstChildElement();
+                if ( ! path ) {
+                    continue;
+                }
+                line = path->NextSiblingElement();
+                if ( ! line ) {
+                    continue;
+                }
+                createdAt = line->NextSiblingElement();
+                if ( ! createdAt ) {
+                    continue;
+                }
 
-                pathitem = pathitem->NextSiblingElement();
+                nrLines = (long) strtoul( line->GetText(), &ptr, 10 );
+
+                LogItems.CreateItem( type->Value(), subtype->Value(), path->GetText(), nrLines, createdAt->GetText() );
+
+                item = item->NextSiblingElement();
             }
 
             subtype = subtype->NextSiblingElement();

@@ -25,6 +25,16 @@ private:
      */
     STRINGCLASS path;
 
+    /**
+     * The number of lines that have to be skipped
+     */
+    unsigned long int line;
+
+    /**
+     * The creation date of the file
+     */
+    STRINGCLASS createdAt;
+
 public:
     /**
      * The default constructor
@@ -32,14 +42,9 @@ public:
     LogItem();
 
     /**
-     * Construct with type and path
-     */
-    LogItem( STRINGCLASS, STRINGCLASS );
-
-    /**
      * Construct with type, subtype and path
      */
-    LogItem( STRINGCLASS, STRINGCLASS, STRINGCLASS );
+    LogItem( STRINGCLASS, STRINGCLASS, STRINGCLASS, unsigned long int, STRINGCLASS );
 
     /**
      * Overload operator != to allow comparisons with bools
@@ -63,6 +68,18 @@ public:
      */
     void setPath( STRINGCLASS );
     STRINGCLASS getPath();
+
+    /**
+     * Setter and Getter for Line
+     */
+    void setLine( unsigned long int );
+    unsigned long int getLine();
+
+    /**
+     * Setter and Getter for Created At
+     */
+    void setCreatedAt( STRINGCLASS );
+    STRINGCLASS getCreatedAt();
 
     /**
      * Check if all fields are valid
@@ -114,7 +131,7 @@ public:
      * Create an item
      */
     void CreateItem( LogItem );
-    void CreateItem( STRINGCLASS, STRINGCLASS, STRINGCLASS );
+    void CreateItem( STRINGCLASS, STRINGCLASS, STRINGCLASS, unsigned long int, STRINGCLASS );
 
     /**
      * Set the current item to the head
