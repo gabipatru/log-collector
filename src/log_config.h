@@ -26,6 +26,11 @@ public:
     int saveConfig();
     int loadConfig();
 
+    /**
+     * Update the XML when an Item changes
+     */
+    int updateXML( LogItem );
+
 private:
     class Display Display;
 };

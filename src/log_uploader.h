@@ -16,7 +16,6 @@ private:
     class Display Display;
 
     unsigned int logChunkSize;
-    unsigned long int linesRead;
 
     STRINGCLASS onlyLog;                                // if defined, only this log will be processed
 
@@ -50,12 +49,12 @@ public:
     /*
      * Log Parse - read lines from log
      */
-    int LogParser( LogItem );
+    int LogParser( LogItem& );
 
     /**
-     * Read contents from the file
+     * Read contents from the file and return the number of lines read
      */
-    void LogReader( std::ifstream*, STRINGCLASS & );
+    int LogReader( std::ifstream*, STRINGCLASS & );
 
     /*
      * Upload the loaded lines to the DB

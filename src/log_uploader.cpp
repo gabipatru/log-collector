@@ -12,7 +12,6 @@ LogUploader::LogUploader()
     this->Display = disp;
 
     this->logChunkSize = 32 * 1024;
-    this->linesRead = 0;
     this->onlyLog = "";
 }
 
@@ -30,6 +29,7 @@ void LogUploader::Cycle()
 {
     int result;
     class LogItem Item;
+    class LogConfig LogConfig;
 
     LogItems.Reset();
 
@@ -41,7 +41,9 @@ void LogUploader::Cycle()
             Item = LogItems.getCurrentItemAndInc();
             continue;
         }
+
         result = this->LogParser( Item );
+        LogConfig.updateXML( Item );
         if ( result = 0 ) {
             return;
         }
@@ -50,11 +52,13 @@ void LogUploader::Cycle()
     }
 }
 
-int LogUploader::LogParser( LogItem Item )
+int LogUploader::LogParser( LogItem& Item )
 {
     char msgBuffer[200];
-    STRINGCLASS buffer;
+    STRINGCLASS buffer("");
     std::ifstream file( Item.getPath().c_str() );
+    unsigned long int linesRead = 0, linesUploaded = 0;
+    int result;
     double maxRunTime = (double) Config.getApplicationRuntime();
 
     if ( ! Item.Validate() ) {
@@ -76,21 +80,31 @@ int LogUploader::LogParser( LogItem Item )
     while ( ! file.eof() ) {
         // if the maxtime is reached, end parsing
         if ( maxRunTime < Application.MeasureRunTime() ) {
+            Item.setLine( linesUploaded );
             this->Display.Warning( "Maximum execution time exceded. Stopping" );
             return 0;
         }
 
-        // read data from log
-        this->LogReader( &file, buffer );
+        // read data from log only if we have to
+        if (buffer.length() == 0) {
+            linesRead = this->LogReader( &file, buffer );
+        }
 
         // upload data
-        this->Upload( Item, buffer );
+        result = this->Upload( Item, buffer );
+        if ( ! result ) {
+            Application.Sleep();
+            // if the upload failed, we must try uploading the same data again
+            continue;
+        }
 
         // reset data
         buffer = "";
+        linesUploaded = linesUploaded + linesRead;
 
         // if the maxtime is reached, end parsing
         if ( maxRunTime < Application.MeasureRunTime() ) {
+            Item.setLine( linesUploaded );
             this->Display.Warning( "Maximum execution time exceded. Stopping" );
             return 0;
         }
@@ -99,16 +113,15 @@ int LogUploader::LogParser( LogItem Item )
     }
 
     file.close();
+    Item.setLine( linesUploaded );
 
     return 1;
 }
 
-void LogUploader::LogReader( std::ifstream *file, STRINGCLASS &buffer )
+int LogUploader::LogReader( std::ifstream *file, STRINGCLASS &buffer )
 {
     STRINGCLASS line;
-    unsigned long bytesRead = 0;
-
-    this->linesRead = 0;
+    unsigned long bytesRead = 0, linesRead = 0;
 
     while ( ! file->eof() ) {
         std::getline( *file, line );
@@ -116,14 +129,16 @@ void LogUploader::LogReader( std::ifstream *file, STRINGCLASS &buffer )
         buffer += line;
         buffer += "\n";
 
-        this->linesRead = this->linesRead++;
+        linesRead++;
 
         // calculate new value of bytes read
         bytesRead = bytesRead + line.length();
         if ( bytesRead >= Config.getLogChunkSize() ) {
-            return;
+            return linesRead;
         }
     }
+
+    return linesRead;
 }
 
 int LogUploader::Upload( LogItem Item, STRINGCLASS& buffer )
