@@ -76,11 +76,13 @@ int LogUploader::LogParser( LogItem& Item )
     snprintf( msgBuffer, sizeof( msgBuffer ), "Start processing %s", Item.getPath().c_str() );
     this->Display.Info( msgBuffer );
 
+    this->SkipLines( &file, Item );
+
     // read from log
     while ( ! file.eof() ) {
         // if the maxtime is reached, end parsing
         if ( maxRunTime < Application.MeasureRunTime() ) {
-            Item.setLine( linesUploaded );
+            Item.setLine( Item.getLine() + linesUploaded );
             this->Display.Warning( "Maximum execution time exceded. Stopping" );
             return 0;
         }
@@ -104,7 +106,7 @@ int LogUploader::LogParser( LogItem& Item )
 
         // if the maxtime is reached, end parsing
         if ( maxRunTime < Application.MeasureRunTime() ) {
-            Item.setLine( linesUploaded );
+            Item.setLine( Item.getLine() + linesUploaded );
             this->Display.Warning( "Maximum execution time exceded. Stopping" );
             return 0;
         }
@@ -113,7 +115,7 @@ int LogUploader::LogParser( LogItem& Item )
     }
 
     file.close();
-    Item.setLine( linesUploaded );
+    Item.setLine( Item.getLine() + linesUploaded );
 
     return 1;
 }
@@ -200,6 +202,24 @@ int LogUploader::Upload( LogItem Item, STRINGCLASS& buffer )
     curl_global_cleanup();
 
     return 1;
+}
+
+void LogUploader::SkipLines( std::ifstream *file, LogItem Item )
+{
+    STRINGCLASS line;
+    char msgBuffer[200];
+    unsigned long int nrLines = Item.getLine();
+    int i = 0;
+
+    if ( Item.getLine() > 0 ) {
+        snprintf( msgBuffer, sizeof( msgBuffer ), "Skipping to line %lu", nrLines );
+        this->Display.Info( msgBuffer );
+
+        while ( ! file->eof() && i < nrLines ) {
+            std::getline( *file, line );
+            i++;
+        }
+    }
 }
 
 void LogUploader::uploadError( CURL* curl, STRINGCLASS* buffer, long code )

@@ -56,6 +56,11 @@ public:
      */
     int LogReader( std::ifstream*, STRINGCLASS & );
 
+    /**
+     * Skip a number of lines in the log file before starting to read
+     */
+    void SkipLines( std::ifstream*, LogItem );
+
     /*
      * Upload the loaded lines to the DB
      */
